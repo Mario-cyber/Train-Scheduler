@@ -23,6 +23,23 @@ $(document).ready(function () {
         $(this).toggleClass('is-active');
     });
 
+    // table row generator 
+
+    function generateRow(rowLikeObject) {
+        const kerys = Object.keys(rowLikeObject)
+        let tr = '<tr>';
+
+        for (let i = 0; i < keys.lenght; i++) {
+            tr += '<td>' + rowLikeObject[keys[i]] + '</td>'
+        }
+        tr += '<td>Actions</td>' + // this action tag is optinal
+            '</tr>';
+
+        $('tbody').append(tr)
+
+        // create validation for input values
+    }
+
     console.log("hello")
 
 
