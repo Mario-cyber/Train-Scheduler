@@ -15,18 +15,33 @@ firebase.initializeApp(config);
 let database = firebase.database();
 
 $(document).ready(function () {
-    event.preventDefault();
 
-    $('[data-open-details]').click(function (e) {
-        e.preventDefault();
-        $(this).next().toggleClass('is-active');
-        $(this).toggleClass('is-active');
-    });
+
+    // $('[data-open-details]').click(function (e) {
+    //     e.preventDefault();
+    //     $(this).next().toggleClass('is-active');
+    //     $(this).toggleClass('is-active');
+    // });
+
+    // get input from user 
+
+    $(".btn").on("click", function () {
+        event.preventDefault()
+        let trainName = $("#train").val().trim().toLowerCase()
+        let destination = $("#destination").val().trim().toLowerCase()
+        let firstTrain = $("#first").val().trim().toLowerCase()
+        let trainInterval = $("#interval").val().trim().toLowerCase()
+        console.log(trainName)
+        console.log(destination)
+        console.log(firstTrain)
+        console.log(trainInterval)
+
+    })
 
     // table row generator 
 
     function generateRow(rowLikeObject) {
-        const kerys = Object.keys(rowLikeObject)
+        const keys = Object.keys(rowLikeObject)
         let tr = '<tr>';
 
         for (let i = 0; i < keys.lenght; i++) {
@@ -41,8 +56,6 @@ $(document).ready(function () {
     }
 
     console.log("hello")
-
-
 
 
 
