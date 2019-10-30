@@ -1,15 +1,8 @@
-/* .container {
-    position: relative;
-    left: 20%;
-
-} */
-
 .jumbotron {
     text-align: center;
-
-
+    color: white;
+    background-color: #007bff;
 }
-
 
 .table-expand {
     margin-top: 5rem;
