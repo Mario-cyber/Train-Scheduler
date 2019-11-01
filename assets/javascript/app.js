@@ -1,5 +1,5 @@
 // Link to Friebase and authenticate credentials
-let config = {
+var config = {
     apiKey: "AIzaSyBznHiPaF3lsxom5ZidCbvqYuP8UzcGCPE",
     authDomain: "train-scheduler-week-7-hw.firebaseapp.com",
     databaseURL: "https://train-scheduler-week-7-hw.firebaseio.com",
@@ -11,17 +11,11 @@ let config = {
 };
 // initialyze firebase 
 firebase.initializeApp(config);
-// Create a variable to reference the database.
+
+// store our database in a varibale to facilitate its use.
 let database = firebase.database();
 
 $(document).ready(function () {
-
-
-    // $('[data-open-details]').click(function (e) {
-    //     e.preventDefault();
-    //     $(this).next().toggleClass('is-active');
-    //     $(this).toggleClass('is-active');
-    // });
 
     // get input from user 
 
@@ -31,12 +25,19 @@ $(document).ready(function () {
         let destination = $("#destination").val().trim().toLowerCase()
         let firstTrain = $("#first").val().trim().toLowerCase()
         let trainInterval = $("#interval").val().trim().toLowerCase()
+        $(".form-control").val("")
         console.log(trainName)
         console.log(destination)
         console.log(firstTrain)
         console.log(trainInterval)
-
+        database.ref().set({
+            name: trainName,
+            destination: destination,
+            firstTrain: firstTrain,
+            interval: trainInterval
+        })
     })
+
 
     // table row generator 
 
