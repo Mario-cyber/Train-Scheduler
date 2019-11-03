@@ -27,10 +27,10 @@ $(document).ready(function () {
 
     $(".btn").on("click", function () {
         event.preventDefault()
-        trainName = $("#train").val().trim().toLowerCase()
-        destination = $("#destination").val().trim().toLowerCase()
-        firstTrain = $("#first").val().trim().toLowerCase()
-        trainInterval = $("#interval").val().trim().toLowerCase()
+        trainName = $("#train").val().trim()
+        destination = $("#destination").val().trim()
+        firstTrain = moment($("#first").val().trim(), 'HH:mm').format('HH:mm')
+        trainInterval = $("#interval").val().trim()
 
         // create a local object to store train data
         newTrain = {
@@ -46,7 +46,7 @@ $(document).ready(function () {
         database.ref().push(newTrain);
 
         // empty the value of out input bars once info has been submmited
-        $(".form-control").val("")
+
     })
 
 
@@ -55,19 +55,44 @@ $(document).ready(function () {
     //  firebase, the following comands are executed. 
 
     database.ref().on("child_added", function (childSnapshot) {
-        console.log("snapshot" + childSnapshot.val());
+        // console.log("snapshot regular type" + typeof childSnapshot);
+        console.log('snapshot stringified', JSON.stringify(childSnapshot));
+        // console.log('snapshot stringified type', typeof JSON.stringify(childSnapshot));
 
-        // Store everything into a variable.
-        var trainName = childSnapshot.val().name;
-        var destination = childSnapshot.val().destination;
-        var firstTrain = childSnapshot.val().firstTrain;
-        var trainInterval = childSnapshot.val().interval;
+        // retieve information ftom database and store everything into a variables.
+        let trainName = childSnapshot.val().name;
+        let destination = childSnapshot.val().destination;
+        let firstTrain = childSnapshot.val().firstTrain;
+        let trainInterval = childSnapshot.val().interval;
 
         // log infor into console 
-        console.log(trainName)
-        console.log(destination)
-        console.log(firstTrain)
-        console.log(trainInterval)
+        console.log('name: ' + trainName)
+        console.log('destination: ' + destination)
+        console.log('first departure: ' + firstTrain)
+        console.log('frequency: ' + trainInterval)
+
+        // do mathy thingy to times ! (thanks Jo for the help!)
+        let timeDiff = moment().diff(moment(firstTrain, 'HH:mm'), 'minutes')
+        let minutesAway = trainInterval - timeDiff % trainInterval;
+        let nextArrival = moment().add(minutesAway).format('HH:mm');
+
+        // moment((moment() + timeDiff), 'HH:mm')
+        console.log(timeDiff)
+        console.log('minutes away: ' + minutesAway)
+        console.log('next arrival: ' + nextArrival)
+
+        //create new table row with train information
+        let newRow = $("<tr>").append(
+            $("<td>").text(trainName),
+            $("<td>").text(destination),
+            $("<td>").text(trainInterval),
+            $("<td>").text(nextArrival).attr("class", "text-right"),
+            $("<td>").text(minutesAway),
+            // $("<td>").text(empBilled)
+        );
+
+        // append new row to table
+        $(".table-expand").append(newRow)
 
     })
 
