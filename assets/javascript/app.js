@@ -39,13 +39,13 @@ $(document).ready(function () {
             firstTrain: firstTrain,
             interval: trainInterval
         }
-        // console log new object
-        // console.log("new train: " + newTrain)
+
 
         // upload train data onto firbase database
         database.ref().push(newTrain);
 
         // empty the value of out input bars once info has been submmited
+        $(".form-group").val("")
 
     })
 
@@ -65,7 +65,7 @@ $(document).ready(function () {
         let firstTrain = childSnapshot.val().firstTrain;
         let trainInterval = childSnapshot.val().interval;
 
-        // log infor into console 
+        // log info into console 
         console.log('name: ' + trainName)
         console.log('destination: ' + destination)
         console.log('first departure: ' + firstTrain)
