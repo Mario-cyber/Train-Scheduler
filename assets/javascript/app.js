@@ -72,12 +72,12 @@ $(document).ready(function () {
         console.log('frequency: ' + trainInterval)
 
         // do mathy thingy to times ! (thanks Jo for the help!)
-        let timeDiff = moment().diff(moment(firstTrain, 'HH:mm'), 'minutes')
+        let timeDiff = moment().diff(moment(firstTrain, 'HH:mm'), 'minutes');
         let minutesAway = trainInterval - timeDiff % trainInterval;
-        let nextArrival = moment().add(minutesAway).format('HH:mm');
+        let nextArrival = moment().add(minutesAway, "minutes").format('HH:mm');
 
-        // moment((moment() + timeDiff), 'HH:mm')
-        console.log(timeDiff)
+        // conolo log time values
+        console.log('time diff: ' + timeDiff)
         console.log('minutes away: ' + minutesAway)
         console.log('next arrival: ' + nextArrival)
 
@@ -95,23 +95,5 @@ $(document).ready(function () {
         $(".table-expand").append(newRow)
 
     })
-
-    // table row generator 
-
-    function generateRow(rowLikeObject) {
-        const keys = Object.keys(rowLikeObject)
-        let tr = '<tr>';
-
-        for (let i = 0; i < keys.lenght; i++) {
-            tr += '<td>' + rowLikeObject[keys[i]] + '</td>'
-        }
-        tr += '<td>Actions</td>' + // this action tag is optinal
-            '</tr>';
-
-        $('tbody').append(tr)
-
-        // create validation for input values
-    }
-
 
 })
